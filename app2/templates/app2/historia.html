@@ -1,0 +1,1034 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Historia - BioVoid</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;800;900&family=Rajdhani:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* ===== RESET & BASE ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg-dark: #05070d;
+            --bg-mid: #0a0e1a;
+            --bg-light: #111827;
+            --accent-cyan: #00d4ff;
+            --accent-green: #00ff9d;
+            --accent-red: #ff2e5c;
+            --text-main: #e8eef5;
+            --text-muted: #8a95a8;
+            --border: rgba(0, 212, 255, 0.15);
+        }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'Rajdhani', sans-serif;
+            background: var(--bg-dark);
+            color: var(--text-main);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        /* ===== FONDO ANIMADO ===== */
+        .bg-grid {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background-image: 
+                linear-gradient(rgba(0, 212, 255, 0.04) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 212, 255, 0.04) 1px, transparent 1px);
+            background-size: 50px 50px;
+            z-index: -2;
+            animation: gridMove 20s linear infinite;
+        }
+
+        @keyframes gridMove {
+            0% { background-position: 0 0; }
+            100% { background-position: 50px 50px; }
+        }
+
+        .bg-glow {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: 
+                radial-gradient(circle at 20% 30%, rgba(0, 255, 157, 0.08) 0%, transparent 50%),
+                radial-gradient(circle at 80% 70%, rgba(255, 46, 92, 0.08) 0%, transparent 50%),
+                radial-gradient(circle at 50% 50%, rgba(0, 212, 255, 0.05) 0%, transparent 60%);
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        /* ===== NAVBAR ===== */
+        nav {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%;
+            padding: 1.2rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(5, 7, 13, 0.85);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border);
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        .logo {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.6rem;
+            font-weight: 900;
+            letter-spacing: 3px;
+            background: linear-gradient(90deg, var(--accent-cyan), var(--accent-green));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-shadow: 0 0 30px rgba(0, 212, 255, 0.5);
+        }
+
+        .logo span {
+            color: var(--accent-red);
+            -webkit-text-fill-color: var(--accent-red);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text-main);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.95rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            position: relative;
+            transition: color 0.3s;
+        }
+
+        .nav-links a::before {
+            content: '';
+            position: absolute;
+            bottom: -6px; left: 0;
+            width: 0; height: 2px;
+            background: var(--accent-cyan);
+            transition: width 0.3s;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: var(--accent-cyan);
+        }
+
+        .nav-links a:hover::before,
+        .nav-links a.active::before {
+            width: 100%;
+        }
+
+        .menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--text-main);
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* ===== HERO ===== */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 8rem 2rem 4rem;
+            position: relative;
+        }
+
+        .hero-tag {
+            display: inline-block;
+            padding: 0.4rem 1.2rem;
+            border: 1px solid var(--accent-cyan);
+            color: var(--accent-cyan);
+            font-size: 0.8rem;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            margin-bottom: 2rem;
+            background: rgba(0, 212, 255, 0.08);
+        }
+
+        .hero h1 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: clamp(3rem, 10vw, 7rem);
+            font-weight: 900;
+            letter-spacing: 8px;
+            line-height: 1;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(180deg, #ffffff 0%, var(--accent-cyan) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-shadow: 0 0 80px rgba(0, 212, 255, 0.3);
+        }
+
+        .hero-subtitle {
+            font-family: 'Orbitron', sans-serif;
+            font-size: clamp(1rem, 2.5vw, 1.4rem);
+            color: var(--text-muted);
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            max-width: 800px;
+            line-height: 1.6;
+        }
+
+        .scroll-indicator {
+            position: absolute;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            color: var(--text-muted);
+            font-size: 0.8rem;
+            letter-spacing: 3px;
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateX(-50%) translateY(0); }
+            50% { transform: translateX(-50%) translateY(-10px); }
+        }
+
+        /* ===== SECCIONES NARRATIVAS ===== */
+        .story-section {
+            padding: 6rem 5%;
+            position: relative;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .chapter-header {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+        }
+
+        .chapter-number {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 3rem;
+            font-weight: 900;
+            color: var(--accent-red);
+            opacity: 0.3;
+            line-height: 1;
+        }
+
+        .chapter-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: clamp(1.8rem, 4vw, 2.8rem);
+            font-weight: 800;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            background: linear-gradient(90deg, var(--accent-cyan), var(--accent-green));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .story-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: start;
+        }
+
+        .story-text {
+            font-size: 1.15rem;
+            color: var(--text-muted);
+            line-height: 1.9;
+        }
+
+        .story-text p {
+            margin-bottom: 1.5rem;
+        }
+
+        .story-text strong {
+            color: var(--accent-cyan);
+            font-weight: 600;
+        }
+
+        .story-text .highlight-red {
+            color: var(--accent-red);
+        }
+
+        .story-visual {
+            aspect-ratio: 1;
+            background: linear-gradient(135deg, rgba(10, 14, 26, 0.8), rgba(17, 24, 39, 0.4));
+            border: 1px solid var(--border);
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .story-visual::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background-image: 
+                linear-gradient(rgba(0, 212, 255, 0.1) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 212, 255, 0.1) 1px, transparent 1px);
+            background-size: 30px 30px;
+            animation: gridMove 15s linear infinite;
+        }
+
+        .visual-icon {
+            font-size: 8rem;
+            opacity: 0.2;
+            filter: blur(2px);
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(5deg); }
+        }
+
+        .visual-label {
+            position: absolute;
+            top: 1rem; left: 1rem;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.7rem;
+            color: var(--accent-green);
+            letter-spacing: 2px;
+            padding: 0.3rem 0.8rem;
+            border: 1px solid var(--accent-green);
+            background: rgba(0, 255, 157, 0.05);
+        }
+
+        /* ===== DIVIDER ===== */
+        .divider {
+            width: 100%;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--border), transparent);
+            margin: 2rem 0;
+        }
+
+        /* ===== TIMELINE ===== */
+        .timeline {
+            position: relative;
+            padding: 4rem 0;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: linear-gradient(180deg, var(--accent-cyan), var(--accent-red));
+            transform: translateX(-50%);
+        }
+
+        .timeline-item {
+            display: flex;
+            justify-content: flex-end;
+            padding-right: 50%;
+            position: relative;
+            margin-bottom: 3rem;
+        }
+
+        .timeline-item:nth-child(even) {
+            justify-content: flex-start;
+            padding-right: 0;
+            padding-left: 50%;
+        }
+
+        .timeline-content {
+            background: linear-gradient(135deg, rgba(10, 14, 26, 0.8), rgba(17, 24, 39, 0.4));
+            border: 1px solid var(--border);
+            padding: 2rem;
+            max-width: 450px;
+            position: relative;
+        }
+
+        .timeline-item:nth-child(odd) .timeline-content {
+            margin-right: 3rem;
+        }
+
+        .timeline-item:nth-child(even) .timeline-content {
+            margin-left: 3rem;
+        }
+
+        .timeline-dot {
+            position: absolute;
+            left: 50%;
+            top: 2rem;
+            width: 16px;
+            height: 16px;
+            background: var(--accent-cyan);
+            border: 3px solid var(--bg-dark);
+            border-radius: 50%;
+            transform: translateX(-50%);
+            box-shadow: 0 0 20px var(--accent-cyan);
+        }
+
+        .timeline-date {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.8rem;
+            color: var(--accent-red);
+            letter-spacing: 2px;
+            margin-bottom: 0.5rem;
+        }
+
+        .timeline-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.3rem;
+            color: var(--accent-cyan);
+            margin-bottom: 1rem;
+            letter-spacing: 2px;
+        }
+
+        .timeline-text {
+            color: var(--text-muted);
+            line-height: 1.7;
+        }
+
+        /* ===== QUOTE ===== */
+        .quote-section {
+            background: linear-gradient(135deg, rgba(0, 212, 255, 0.05), rgba(255, 46, 92, 0.05));
+            border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+            padding: 5rem 5%;
+            text-align: center;
+        }
+
+        .quote {
+            font-family: 'Orbitron', sans-serif;
+            font-size: clamp(1.5rem, 3vw, 2.5rem);
+            font-weight: 600;
+            letter-spacing: 3px;
+            max-width: 900px;
+            margin: 0 auto;
+            line-height: 1.6;
+            color: var(--text-main);
+        }
+
+        .quote::before,
+        .quote::after {
+            content: '"';
+            color: var(--accent-red);
+            font-size: 3rem;
+            opacity: 0.5;
+        }
+
+        /* ===== NARRATIVE METHODS ===== */
+        .methods-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .method-card {
+            background: linear-gradient(135deg, rgba(10, 14, 26, 0.8), rgba(17, 24, 39, 0.4));
+            border: 1px solid var(--border);
+            padding: 2rem;
+            text-align: center;
+            transition: all 0.3s;
+        }
+
+        .method-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent-cyan);
+            box-shadow: 0 10px 30px rgba(0, 212, 255, 0.2);
+        }
+
+        .method-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            filter: drop-shadow(0 0 10px currentColor);
+        }
+
+        .method-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.1rem;
+            color: var(--accent-cyan);
+            margin-bottom: 1rem;
+            letter-spacing: 2px;
+        }
+
+        .method-text {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        /* ===== FOOTER ===== */
+        footer {
+            background: var(--bg-mid);
+            padding: 3rem 5% 2rem;
+            border-top: 1px solid var(--border);
+            text-align: center;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .footer-logo {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.8rem;
+            font-weight: 900;
+            letter-spacing: 4px;
+            margin-bottom: 1rem;
+            background: linear-gradient(90deg, var(--accent-cyan), var(--accent-green));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .footer-text {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            margin-bottom: 1.5rem;
+            letter-spacing: 1px;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .footer-links a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.9rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            transition: color 0.3s;
+        }
+
+        .footer-links a:hover {
+            color: var(--accent-cyan);
+        }
+
+        .footer-bottom {
+            padding-top: 2rem;
+            border-top: 1px solid var(--border);
+            color: var(--text-muted);
+            font-size: 0.8rem;
+            letter-spacing: 1px;
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 768px) {
+            .menu-toggle { display: block; }
+            
+            .nav-links {
+                position: fixed;
+                top: 70px; left: 0;
+                width: 100%;
+                flex-direction: column;
+                background: rgba(5, 7, 13, 0.98);
+                padding: 2rem;
+                gap: 1.5rem;
+                transform: translateY(-150%);
+                transition: transform 0.3s;
+                border-bottom: 1px solid var(--border);
+            }
+
+            .nav-links.active {
+                transform: translateY(0);
+            }
+
+            .story-content {
+                grid-template-columns: 1fr;
+            }
+
+            .story-visual {
+                max-width: 400px;
+                margin: 0 auto;
+            }
+
+            .timeline::before {
+                left: 20px;
+            }
+
+            .timeline-item,
+            .timeline-item:nth-child(even) {
+                padding-left: 0;
+                padding-right: 0;
+                justify-content: flex-start;
+            }
+
+            .timeline-content,
+            .timeline-item:nth-child(odd) .timeline-content,
+            .timeline-item:nth-child(even) .timeline-content {
+                margin-left: 3rem;
+                margin-right: 0;
+                max-width: 100%;
+            }
+
+            .timeline-dot {
+                left: 20px;
+            }
+
+            .chapter-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 0.5rem;
+            }
+
+            section { padding: 4rem 5%; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Fondos -->
+    <div class="bg-grid"></div>
+    <div class="bg-glow"></div>
+
+    <!-- NAVBAR -->
+    <nav>
+        <div class="logo">BIO<span>VOID</span></div>
+        <ul class="nav-links" id="navLinks">
+            <li><a href="http://127.0.0.1:8000">Inicio</a></li>
+            <li><a href="http://127.0.0.1:8000/historia/" class="active">Historia</a></li>
+            <li><a href="http://127.0.0.1:8000/personajes/">Personajes</a></li>
+            <li><a href="http://127.0.0.1:8000/descarga/">Descarga</a></li>
+        </ul>
+        <button class="menu-toggle" id="menuToggle">☰</button>
+    </nav>
+
+    <!-- HERO -->
+    <section class="hero">
+        <div class="hero-tag">// ARCHIVOS CLASIFICADOS //</div>
+        <h1>LA HISTORIA</h1>
+        <p class="hero-subtitle">
+            Una invasión. Un secreto. Un dilema moral que cambiará el destino de dos especies.
+        </p>
+        <div class="scroll-indicator">↓ DESCUBRE LA VERDAD ↓</div>
+    </section>
+
+    <!-- CAPÍTULO 1: EL MUNDO ANTES -->
+    <section class="story-section">
+        <div class="chapter-header">
+            <div class="chapter-number">01</div>
+            <h2 class="chapter-title">El Mundo Antes</h2>
+        </div>
+        <div class="story-content">
+            <div class="story-text">
+                <p>
+                    A finales del <strong>siglo XXII</strong>, la humanidad alcanzó la cima de su desarrollo tecnológico. 
+                    Ciudades automatizadas se extendían por continentes enteros, sistemas de defensa globales protegían 
+                    cada rincón del planeta, y la exploración espacial había dejado de ser un sueño para convertirse 
+                    en una realidad cotidiana.
+                </p>
+                <p>
+                    Las potencias globales mantenían un equilibrio frágil pero estable. La tecnología había resuelto 
+                    muchos de los problemas del pasado, pero la sociedad seguía dependiendo fuertemente de los recursos 
+                    terrestres. El mundo estaba altamente desarrollado, pero también era vulnerable.
+                </p>
+                <p>
+                    Nadie imaginaba que la mayor amenaza no vendría del espacio exterior, sino de una especie que 
+                    luchaba por su propia supervivencia.
+                </p>
+            </div>
+            <div class="story-visual">
+                <div class="visual-label">SIGLO XXII // ERA TECNOLÓGICA</div>
+                <div class="visual-icon">🌆</div>
+            </div>
+        </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- CAPÍTULO 2: LA INVASIÓN -->
+    <section class="story-section">
+        <div class="chapter-header">
+            <div class="chapter-number">02</div>
+            <h2 class="chapter-title">La Invasión</h2>
+        </div>
+        <div class="story-content">
+            <div class="story-text">
+                <p>
+                    Las primeras señales aparecieron simultáneamente en distintas ciudades del mundo. 
+                    <strong class="highlight-red">No hubo advertencia</strong>. No hubo comunicación. Solo destrucción.
+                </p>
+                <p>
+                    Una especie alienígena desconocida descendió sobre la Tierra con una organización militar 
+                    que superaba cualquier expectativa humana. En cuestión de horas, las principales ciudades 
+                    se convirtieron en zonas de guerra. Edificios colapsaron, sistemas eléctricos fallaron, 
+                    y el caos se apoderó de la civilización.
+                </p>
+                <p>
+                    La respuesta militar fue inmediata. Se activaron protocolos de emergencia, se movilizaron 
+                    tropas de reserva, y se crearon unidades especializadas para enfrentar la amenaza. 
+                    Pero los invasores no se comportaban como ningún enemigo que la humanidad hubiera enfrentado antes.
+                </p>
+            </div>
+            <div class="story-visual">
+                <div class="visual-label">ALERTA // INVASIÓN ACTIVA</div>
+                <div class="visual-icon">🛸</div>
+            </div>
+        </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- CAPÍTULO 3: PRIMERA FASE -->
+    <section class="story-section">
+        <div class="chapter-header">
+            <div class="chapter-number">03</div>
+            <h2 class="chapter-title">Sobrevivir</h2>
+        </div>
+        <div class="story-content">
+            <div class="story-text">
+                <p>
+                    Las primeras misiones se enfocaron en lo esencial: <strong>sobrevivir</strong>. 
+                    Evacuar civiles de las zonas urbanas devastadas. Contener el avance enemigo. 
+                    Establecer perímetros de defensa en lo que quedaba de la infraestructura humana.
+                </p>
+                <p>
+                    El <strong>Comandante Mustang</strong>, veterano de guerra y líder de una unidad especializada, 
+                    perdió a gran parte de su escuadrón durante los primeros ataques. Pero la pérdida no lo detuvo. 
+                    La motivación era clara: proteger a la humanidad y detener al enemigo a toda costa.
+                </p>
+                <p>
+                    En esta etapa, el conflicto parecía una guerra tradicional. Humanos contra alienígenas. 
+                    Bien contra mal. Conquista contra resistencia. Pero algo no encajaba.
+                </p>
+            </div>
+            <div class="story-visual">
+                <div class="visual-label">FASE 1 // CONTENCIÓN</div>
+                <div class="visual-icon">⚔️</div>
+            </div>
+        </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- QUOTE -->
+    <section class="quote-section">
+        <p class="quote">
+            Los alienígenas no destruyen completamente las ciudades ni eliminan indiscriminadamente a los humanos. 
+            En muchos casos, capturan personas y transportan cuerpos hacia instalaciones desconocidas.
+        </p>
+    </section>
+
+    <!-- CAPÍTULO 4: LOS DESCUBRIMIENTOS -->
+    <section class="story-section">
+        <div class="chapter-header">
+            <div class="chapter-number">04</div>
+            <h2 class="chapter-title">Los Descubrimientos</h2>
+        </div>
+        <div class="story-content">
+            <div class="story-text">
+                <p>
+                    A medida que avanzaba la campaña, comenzaron a aparecer elementos que indicaban que la invasión 
+                    poseía un objetivo mucho más específico. Los alienígenas <strong>no actuaban como conquistadores</strong>.
+                </p>
+                <p>
+                    Registros encontrados en instalaciones abandonadas. Comunicaciones interceptadas. 
+                    Estructuras alienígenas exploradas en misiones de infiltración. Cada pieza de información 
+                    revelaba un patrón inquietante: los invasores capturaban humanos vivos. Los transportaban 
+                    a instalaciones desconocidas. Extraían algo de su sangre.
+                </p>
+                <p>
+                    Las ciudades no eran completamente destruidas. Las instalaciones biotecnológicas alienígenas 
+                    se integraban al entorno, con estructuras orgánicas y iluminación bioluminiscente. 
+                    Algo estaba siendo construido. Algo estaba siendo extraído.
+                </p>
+            </div>
+            <div class="story-visual">
+                <div class="visual-label">INVESTIGACIÓN // EN CURSO</div>
+                <div class="visual-icon">🔬</div>
+            </div>
+        </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- TIMELINE -->
+    <section class="story-section">
+        <h2 class="chapter-title" style="text-align: center; margin-bottom: 3rem;">Cronología del Conflicto</h2>
+        <div class="timeline">
+            <div class="timeline-item">
+                <div class="timeline-dot"></div>
+                <div class="timeline-content">
+                    <div class="timeline-date">DÍA 0</div>
+                    <h3 class="timeline-title">Primer Contacto</h3>
+                    <p class="timeline-text">
+                        Ataques simultáneos en múltiples ciudades. Caos global. Activación de protocolos de emergencia.
+                    </p>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-dot"></div>
+                <div class="timeline-content">
+                    <div class="timeline-date">SEMANA 1-4</div>
+                    <h3 class="timeline-title">Fase de Contención</h3>
+                    <p class="timeline-text">
+                        Evacuación masiva de civiles. Establecimiento de zonas seguras. Primeras misiones de combate.
+                    </p>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-dot"></div>
+                <div class="timeline-content">
+                    <div class="timeline-date">MES 2-3</div>
+                    <h3 class="timeline-title">Patrones Extraños</h3>
+                    <p class="timeline-text">
+                        Descubrimiento de capturas humanas. Instalaciones alienígenas identificadas. Comportamiento enemigo inusual.
+                    </p>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-dot"></div>
+                <div class="timeline-content">
+                    <div class="timeline-date">MES 4-6</div>
+                    <h3 class="timeline-title">La Revelación</h3>
+                    <p class="timeline-text">
+                        Descubrimiento del compuesto biológico en sangre humana. Origen de la invasión revelado.
+                    </p>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-dot"></div>
+                <div class="timeline-content">
+                    <div class="timeline-date">MES 7+</div>
+                    <h3 class="timeline-title">Desenlace</h3>
+                    <p class="timeline-text">
+                        Infiltración en nave nodriza. Destrucción del sistema de extracción. Decisión final.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- CAPÍTULO 5: LA REVELACIÓN -->
+    <section class="story-section">
+        <div class="chapter-header">
+            <div class="chapter-number">05</div>
+            <h2 class="chapter-title">La Revelación</h2>
+        </div>
+        <div class="story-content">
+            <div class="story-text">
+                <p>
+                    La verdad fue más impactante que cualquier teoría de conspiración. 
+                    <strong>La sangre humana contiene un compuesto biológico único</strong>, esencial para la supervivencia 
+                    de la especie invasora.
+                </p>
+                <p>
+                    Los alienígenas no invadieron la Tierra por ambición o conquista. Invadieron porque 
+                    <strong class="highlight-red">están al borde de la extinción</strong>. Una falla industrial masiva en su planeta 
+                    de origen provocó una enfermedad degenerativa que amenaza con extinguirlos lentamente.
+                </p>
+                <p>
+                    La invasión no es un acto de guerra. Es un acto de desesperación. Consideran a la humanidad 
+                    su única posibilidad de supervivencia. Y están dispuestos a hacer lo que sea necesario 
+                    para obtener la cura.
+                </p>
+            </div>
+            <div class="story-visual">
+                <div class="visual-label">BIOTHREAT // COMPUESTO IDENTIFICADO</div>
+                <div class="visual-icon">🧬</div>
+            </div>
+        </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- CAPÍTULO 6: EL DILEMA -->
+    <section class="story-section">
+        <div class="chapter-header">
+            <div class="chapter-number">06</div>
+            <h2 class="chapter-title">El Dilema Moral</h2>
+        </div>
+        <div class="story-content">
+            <div class="story-text">
+                <p>
+                    A partir de esta revelación, el conflicto deja de presentarse como una lucha entre el bien y el mal. 
+                    Se transforma en una <strong>situación moralmente compleja</strong>.
+                </p>
+                <p>
+                    Los alienígenas invaden la Tierra no por maldad, sino porque consideran a la humanidad 
+                    su única posibilidad de supervivencia. Ambas especies luchan por continuar existiendo. 
+                    Ambas tienen razones válidas para luchar.
+                </p>
+                <p>
+                    El jugador se enfrenta a un dilema sin respuestas fáciles: <strong class="highlight-red">¿es justo defender 
+                    a la humanidad si eso significa condenar a otra especie a la extinción?</strong> 
+                    ¿Existe alguna forma de coexistencia? ¿O la supervivencia de uno requiere la destrucción del otro?
+                </p>
+            </div>
+            <div class="story-visual">
+                <div class="visual-label">CONFLICTO // ÉTICO</div>
+                <div class="visual-icon">⚖️</div>
+            </div>
+        </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- CAPÍTULO 7: EL DESENLACE -->
+    <section class="story-section">
+        <div class="chapter-header">
+            <div class="chapter-number">07</div>
+            <h2 class="chapter-title">El Desenlace</h2>
+        </div>
+        <div class="story-content">
+            <div class="story-text">
+                <p>
+                    La humanidad logra enfrentarse a la <strong>nave nodriza principal</strong>. 
+                    El Comandante Mustang consigue infiltrarse en la estructura y destruir el sistema 
+                    encargado de extraer el compuesto biológico humano.
+                </p>
+                <p>
+                    Las fuerzas invasoras se ven obligadas a retirarse. La extracción masiva se detiene. 
+                    La supervivencia de la humanidad está asegurada.
+                </p>
+                <p>
+                    Pero el descubrimiento final deja un <strong class="highlight-red">conflicto moral abierto</strong>: 
+                    salvar a la humanidad implica condenar a la especie alienígena a desaparecer. 
+                    La victoria tiene un precio que nadie está dispuesto a pagar, pero que todos deben aceptar.
+                </p>
+            </div>
+            <div class="story-visual">
+                <div class="visual-label">MISIÓN FINAL // NAVE NODRIZA</div>
+                <div class="visual-icon">🚀</div>
+            </div>
+        </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- CÓMO SE CUENTA LA HISTORIA -->
+    <section class="story-section">
+        <h2 class="chapter-title" style="text-align: center; margin-bottom: 1rem;">Cómo Se Cuenta La Historia</h2>
+        <p style="text-align: center; color: var(--text-muted); margin-bottom: 3rem; font-size: 1.1rem;">
+            La narrativa no funciona de manera aislada, sino integrada directamente al diseño del juego.
+        </p>
+        
+        <div class="methods-grid">
+            <div class="method-card">
+                <div class="method-icon" style="color: var(--accent-cyan);">📖</div>
+                <h3 class="method-title">Texto Narrador</h3>
+                <p class="method-text">
+                    Secuencias narrativas que contextualizan las misiones y revelan información clave sobre el conflicto.
+                </p>
+            </div>
+            <div class="method-card">
+                <div class="method-icon" style="color: var(--accent-green);">📄</div>
+                <h3 class="method-title">Registros Encontrados</h3>
+                <p class="method-text">
+                    Documentos, archivos y notas dispersas en las instalaciones que revelan la verdad detrás de la invasión.
+                </p>
+            </div>
+            <div class="method-card">
+                <div class="method-icon" style="color: var(--accent-red);">📡</div>
+                <h3 class="method-title">Comunicaciones Interceptadas</h3>
+                <p class="method-text">
+                    Mensajes alienígenas capturados que exponen sus motivaciones y el estado de su especie.
+                </p>
+            </div>
+            <div class="method-card">
+                <div class="method-icon" style="color: var(--accent-cyan);">🏛️</div>
+                <h3 class="method-title">Exploración de Estructuras</h3>
+                <p class="method-text">
+                    Laboratorios, bases y naves alienígenas que cuentan la historia a través de su diseño y entorno.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-logo">BIOVOID</div>
+            <p class="footer-text">La humanidad no convive. Erradica.</p>
+            <div class="footer-links">
+                <a href="index.html">Inicio</a>
+                <a href="historia.html">Historia</a>
+                <a href="personajes.html">Personajes</a>
+                <a href="descarga.html">Descarga</a>
+            </div>
+            <div class="footer-bottom">
+                © 2026 BioVoid // Proyecto desarrollado por Franco Silva // 6° 2° Informática
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Menú móvil
+        const menuToggle = document.getElementById('menuToggle');
+        const navLinks = document.getElementById('navLinks');
+        
+        menuToggle.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+        });
+
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('active');
+            });
+        });
+
+        // Navbar con efecto al hacer scroll
+        window.addEventListener('scroll', () => {
+            const nav = document.querySelector('nav');
+            if (window.scrollY > 50) {
+                nav.style.padding = '0.8rem 5%';
+                nav.style.background = 'rgba(5, 7, 13, 0.95)';
+            } else {
+                nav.style.padding = '1.2rem 5%';
+                nav.style.background = 'rgba(5, 7, 13, 0.85)';
+            }
+        });
+
+        // Animación de entrada
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.story-section, .timeline-item, .method-card').forEach((el, i) => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(30px)';
+            el.style.transition = `all 0.6s ease ${i * 0.05}s`;
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html>
