@@ -890,6 +890,13 @@
             <li><a href="http://127.0.0.1:8000/historia/">Historia</a></li>
             <li><a href="http://127.0.0.1:8000/personajes/">Personajes</a></li>
             <li><a href="http://127.0.0.1:8000/descarga/" class="active">Descarga</a></li>
+            {% if user.is_authenticated %}
+                <li><span class="nav-user">{{ user.username }}</span></li>
+                <li><form action="{% url 'logout' %}" method="post" style="margin: 0;" onsubmit="return confirm('¿Estás seguro de que quieres cerrar sesión?');">{% csrf_token %}<button type="submit" style="border: 0; background: none; color: var(--text-main); cursor: pointer; font: inherit; font-size: .95rem; letter-spacing: 2px; text-transform: uppercase;">Salir</button></form></li>
+            {% else %}
+                <li><a href="{% url 'login' %}">Iniciar sesión</a></li>
+                <li><a href="{% url 'registro' %}">Crear cuenta</a></li>
+            {% endif %}
         </ul>
         <button class="menu-toggle" id="menuToggle">☰</button>
     </nav>
