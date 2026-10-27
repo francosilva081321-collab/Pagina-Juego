@@ -1,1 +1,141 @@
 {% extends 'app2/Componentes/Plantilla.html' %}
+{% block titulo %}BioVoid - La humanidad no convive. Erradica.{% endblock %}
+
+{% block contenido %}
+  <!-- HERO -->
+    <section class="hero">
+        <div class="hero-tag">⚠ Alerta de invasión // Siglo XXII</div>
+        <h1>BIOVOID</h1>
+        <div class="hero-tagline">La humanidad no convive. Erradica.</div>
+        <p class="hero-description">
+            Una especie alienígena al borde de la extinción invade la Tierra. No buscan conquistar: 
+            buscan <strong style="color: var(--accent-red);">sobrevivir</strong>. Y tu sangre es su única cura.
+        </p>
+        <div class="hero-buttons">
+            <a href="{% url 'descarga' %}" class="btn btn-primary">Descargar ahora</a>
+            <a href="{% url 'historia' %}" class="btn btn-secondary">Ver la historia</a>
+        </div>
+        <div class="scroll-indicator">↓ DESCUBRE MÁS ↓</div>
+    </section>
+
+    <!-- SINOPSIS -->
+    <section class="synopsis">
+        <h2 class="section-title">La <span>Invasión</span></h2>
+        <p class="section-subtitle">// BRIEFING DE MISIÓN //</p>
+        
+        <div class="synopsis-grid">
+            <div class="synopsis-text">
+                <p>
+                    A finales del <strong>siglo XXII</strong>, la humanidad alcanzó la cima de su desarrollo tecnológico. 
+                    Ciudades automatizadas, sistemas de defensa globales y exploración espacial a gran escala. 
+                    Pero nada nos preparó para lo que venía.
+                </p>
+                <p>
+                    Una especie alienígena desconocida invade la Tierra de forma repentina y coordinada. 
+                    No destruyen indiscriminadamente. <strong>Capturan humanos</strong>. Los transportan a 
+                    instalaciones desconocidas. Extraen algo de su sangre.
+                </p>
+                <p>
+                    Como <strong>Comandante Mustang</strong>, liderarás una unidad especializada para recuperar 
+                    territorios, rescatar sobrevivientes y descubrir la verdad detrás de la invasión. 
+                    Pero la verdad podría ser peor que la guerra misma.
+                </p>
+            </div>
+            <div class="synopsis-visual">
+                <div class="bio-label">BIOTHREAT // ACTIVE</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FEATURES -->
+    <section>
+        <h2 class="section-title">Características del <span>Juego</span></h2>
+        <p class="section-subtitle">// SISTEMAS DE COMBATE //</p>
+        
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon" style="color: var(--accent-cyan);">🎯</div>
+                <h3>Shooter PVE</h3>
+                <p>Combate en primera persona contra oleadas de enemigos alienígenas en entornos hostiles. Acción frenética y constante.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon" style="color: var(--accent-green);">🧬</div>
+                <h3>Narrativa Profunda</h3>
+                <p>Descubre la verdad detrás de la invasión mediante registros, laboratorios y comunicaciones interceptadas. Un conflicto ético sin respuestas fáciles.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon" style="color: var(--accent-red);">⚔️</div>
+                <h3>Arsenal Futurista</h3>
+                <p>Rifles de asalto, escopetas, armamento energético y explosivos. Mejora tu equipamiento y adapta tu estilo de combate.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon" style="color: var(--accent-cyan);">🌌</div>
+                <h3>Mundos Hostiles</h3>
+                <p>Ciudades devastadas, bases subterráneas, instalaciones biotecnológicas y naves nodrizas. Explora un mundo al borde del colapso.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon" style="color: var(--accent-green);">📈</div>
+                <h3>Progresión Constante</h3>
+                <p>Desbloquea nuevas armas, habilidades y mejoras. La dificultad escala con cada misión y cada variante enemiga.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon" style="color: var(--accent-red);">⚡</div>
+                <h3>Estética Low-Poly</h3>
+                <p>Paleta fría y oscura, iluminación bioluminiscente alienígena y atmósfera opresiva inspirada en Deep Rock Galactic y Helldivers 2.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- INFO BANNER -->
+    <section class="info-banner">
+        <div class="info-grid">
+            <div class="info-item">
+                <div class="label">Plataforma</div>
+                <div class="value">PC</div>
+            </div>
+            <div class="info-item">
+                <div class="label">Perspectiva</div>
+                <div class="value">FPS 3D</div>
+            </div>
+            <div class="info-item">
+                <div class="label">Jugadores</div>
+                <div class="value">1</div>
+            </div>
+            <div class="info-item">
+                <div class="label">Duración</div>
+                <div class="value">10-20 MIN</div>
+            </div>
+            <div class="info-item">
+                <div class="label">Género</div>
+                <div class="value">SHOOTER</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="cta">
+        <h2>¿Estás listo para <span style="color: var(--accent-red);">defender</span> lo que queda?</h2>
+        <p>La humanidad cuenta contigo, Comandante. Cada segundo cuenta. Cada bala importa.</p>
+        <a href="{% url 'descarga' %}" class="btn btn-primary">Descargar BioVoid</a>
+    </section>
+{% endblock contenido %}
+
+{% block scripts %}
+    <script>
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry) => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.feature-card').forEach((card, index) => {
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(30px)';
+            card.style.transition = `all 0.6s ease ${index * 0.1}s`;
+            observer.observe(card);
+        });
+    </script>
+{% endblock %}

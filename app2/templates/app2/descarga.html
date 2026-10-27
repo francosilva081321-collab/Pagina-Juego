@@ -1,22 +1,11 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=}, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    <!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Descarga - BioVoid</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;800;900&family=Rajdhani:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+{% extends 'app2/Componentes/Plantilla.html' %}
+{% load static %}
+
+{% block titulo %}Descarga - BioVoid{% endblock %}
+
+{% block estilos %}
     <style>
-        /* ===== RESET & BASE ===== */
+/* ===== RESET & BASE ===== */
         * {
             margin: 0;
             padding: 0;
@@ -876,32 +865,10 @@
             section { padding: 4rem 5%; }
         }
     </style>
-</head>
-<body>
-    <!-- Fondos -->
-    <div class="bg-grid"></div>
-    <div class="bg-glow"></div>
+{% endblock %}
 
-    <!-- NAVBAR -->
-    <nav>
-        <div class="logo">BIO<span>VOID</span></div>
-        <ul class="nav-links" id="navLinks">
-            <li><a href="http://127.0.0.1:8000">Inicio</a></li>
-            <li><a href="http://127.0.0.1:8000/historia/">Historia</a></li>
-            <li><a href="http://127.0.0.1:8000/personajes/">Personajes</a></li>
-            <li><a href="http://127.0.0.1:8000/descarga/" class="active">Descarga</a></li>
-            {% if user.is_authenticated %}
-                <li><span class="nav-user">{{ user.username }}</span></li>
-                <li><form action="{% url 'logout' %}" method="post" style="margin: 0;" onsubmit="return confirm('¿Estás seguro de que quieres cerrar sesión?');">{% csrf_token %}<button type="submit" style="border: 0; background: none; color: var(--text-main); cursor: pointer; font: inherit; font-size: .95rem; letter-spacing: 2px; text-transform: uppercase;">Salir</button></form></li>
-            {% else %}
-                <li><a href="{% url 'login' %}">Iniciar sesión</a></li>
-                <li><a href="{% url 'registro' %}">Crear cuenta</a></li>
-            {% endif %}
-        </ul>
-        <button class="menu-toggle" id="menuToggle">☰</button>
-    </nav>
-
-    <!-- HERO DESCARGA -->
+{% block contenido %}
+<!-- HERO DESCARGA -->
     <section class="hero">
         <div class="hero-tag">⬇ Descarga Disponible // v1.0.0</div>
         <h1>DESCARGA</h1>
@@ -1221,85 +1188,42 @@
             y son de uso libre. Este juego no tiene fines comerciales.
         </div>
     </section>
+{% endblock %}
 
-    <!-- FOOTER -->
-    <footer>
-        <div class="footer-content">
-            <div class="footer-logo">BIOVOID</div>
-            <p class="footer-text">La humanidad no convive. Erradica.</p>
-            <div class="footer-links">
-                <a href="index.html">Inicio</a>
-                <a href="historia.html">Historia</a>
-                <a href="personajes.html">Personajes</a>
-                <a href="descarga.html">Descarga</a>
-            </div>
-            <div class="footer-bottom">
-                © 2026 BioVoid // Proyecto desarrollado por Franco Silva // 6° 2° Informática
-            </div>
-        </div>
-    </footer>
-
+{% block scripts %}
     <script>
-        // Menú móvil
-        const menuToggle = document.getElementById('menuToggle');
-        const navLinks = document.getElementById('navLinks');
-        
-        menuToggle.addEventListener('click', () => {
-            navLinks.classList.toggle('active');
-        });
-
-        document.querySelectorAll('.nav-links a').forEach(link => {
-            link.addEventListener('click', () => {
-                navLinks.classList.remove('active');
-            });
-        });
-
-        // Navbar con efecto al hacer scroll
-        window.addEventListener('scroll', () => {
-            const nav = document.querySelector('nav');
-            if (window.scrollY > 50) {
-                nav.style.padding = '0.8rem 5%';
-                nav.style.background = 'rgba(5, 7, 13, 0.95)';
-            } else {
-                nav.style.padding = '1.2rem 5%';
-                nav.style.background = 'rgba(5, 7, 13, 0.85)';
-            }
-        });
-
-        // FAQ acordeón
         document.querySelectorAll('.faq-question').forEach(question => {
-            question.addEventListener('click', () => {
-                const item = question.parentElement;
-                const isActive = item.classList.contains('active');
-                
-                // Cerrar todos
-                document.querySelectorAll('.faq-item').forEach(i => {
-                    i.classList.remove('active');
+                    question.addEventListener('click', () => {
+                        const item = question.parentElement;
+                        const isActive = item.classList.contains('active');
+                        
+                        // Cerrar todos
+                        document.querySelectorAll('.faq-item').forEach(i => {
+                            i.classList.remove('active');
+                        });
+                        
+                        // Abrir el clickeado si no estaba abierto
+                        if (!isActive) {
+                            item.classList.add('active');
+                        }
+                    });
                 });
-                
-                // Abrir el clickeado si no estaba abierto
-                if (!isActive) {
-                    item.classList.add('active');
-                }
-            });
-        });
-
-        // Animación de entrada
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.style.opacity = '1';
-                    entry.target.style.transform = 'translateY(0)';
-                }
-            });
-        }, { threshold: 0.1 });
-
-        document.querySelectorAll('.game-info, .req-card, .step, .changelog, .faq-item, .alt-download').forEach((el, i) => {
-            el.style.opacity = '0';
-            el.style.transform = 'translateY(30px)';
-            el.style.transition = `all 0.6s ease ${i * 0.05}s`;
-            observer.observe(el);
-        });
+        
+                // Animación de entrada
+                const observer = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            entry.target.style.opacity = '1';
+                            entry.target.style.transform = 'translateY(0)';
+                        }
+                    });
+                }, { threshold: 0.1 });
+        
+                document.querySelectorAll('.game-info, .req-card, .step, .changelog, .faq-item, .alt-download').forEach((el, i) => {
+                    el.style.opacity = '0';
+                    el.style.transform = 'translateY(30px)';
+                    el.style.transition = `all 0.6s ease ${i * 0.05}s`;
+                    observer.observe(el);
+                });
     </script>
-</body>
-</html>
+{% endblock %}

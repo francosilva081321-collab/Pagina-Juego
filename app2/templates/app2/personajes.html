@@ -1,43 +1,14 @@
+{% extends 'app2/Componentes/Plantilla.html' %}
 {% load static %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Personajes - BioVoid</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+{% block titulo %}Personajes - BioVoid{% endblock %}
+
+{% block estilos %}
     <link rel="stylesheet" href="{% static 'css/personajes.css' %}">
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;800;900&family=Rajdhani:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-</head>
-<body>
-    <!-- Fondos -->
-    <div class="bg-grid"></div>
-    <div class="bg-glow"></div>
+{% endblock %}
 
-    <!-- NAVBAR -->
-    <nav>
-        <div class="logo">BIO<span>VOID</span></div>
-        <ul class="nav-links" id="navLinks">
-            <li><a href="http://127.0.0.1:8000">Inicio</a></li>
-            <li><a href="http://127.0.0.1:8000/historia/">Historia</a></li>
-            <li><a href="http://127.0.0.1:8000/personajes/" class="active">Personajes</a></li>
-            <li><a href="http://127.0.0.1:8000/descarga/">Descarga</a></li>
-            {% if user.is_authenticated %}
-                <li><span class="nav-user">{{ user.username }}</span></li>
-                <li><form action="{% url 'logout' %}" method="post" style="margin: 0;" onsubmit="return confirm('¿Estás seguro de que quieres cerrar sesión?');">{% csrf_token %}<button type="submit" style="border: 0; background: none; color: var(--text-main); cursor: pointer; font: inherit; font-size: .95rem; letter-spacing: 2px; text-transform: uppercase;">Salir</button></form></li>
-            {% else %}
-                <li><a href="{% url 'login' %}">Iniciar sesión</a></li>
-                <li><a href="{% url 'registro' %}">Crear cuenta</a></li>
-            {% endif %}
-        </ul>
-        <button class="menu-toggle" id="menuToggle">☰</button>
-    </nav>
-
-    <!-- HERO -->
+{% block contenido %}
+<!-- HERO -->
     <section class="hero">
         <div class="hero-tag">// EXPEDIENTES DE PERSONAL //</div>
         <h1>PERSONAJES</h1>
@@ -246,67 +217,24 @@
             </div>
         </div>
     </section>
+{% endblock %}
 
-    <!-- FOOTER -->
-    <footer>
-        <div class="footer-content">
-            <div class="footer-logo">BIOVOID</div>
-            <p class="footer-text">La humanidad no convive. Erradica.</p>
-            <div class="footer-links">
-                <a href="index.html">Inicio</a>
-                <a href="historia.html">Historia</a>
-                <a href="personajes.html">Personajes</a>
-                <a href="descarga.html">Descarga</a>
-            </div>
-            <div class="footer-bottom">
-                © 2026 BioVoid // Proyecto desarrollado por Franco Silva // 6° 2° Informática
-            </div>
-        </div>
-    </footer>
-
+{% block scripts %}
     <script>
-        // Menú móvil
-        const menuToggle = document.getElementById('menuToggle');
-        const navLinks = document.getElementById('navLinks');
-        
-        menuToggle.addEventListener('click', () => {
-            navLinks.classList.toggle('active');
-        });
-
-        document.querySelectorAll('.nav-links a').forEach(link => {
-            link.addEventListener('click', () => {
-                navLinks.classList.remove('active');
-            });
-        });
-
-        // Navbar con efecto al hacer scroll
-        window.addEventListener('scroll', () => {
-            const nav = document.querySelector('nav');
-            if (window.scrollY > 50) {
-                nav.style.padding = '0.8rem 5%';
-                nav.style.background = 'rgba(5, 7, 13, 0.95)';
-            } else {
-                nav.style.padding = '1.2rem 5%';
-                nav.style.background = 'rgba(5, 7, 13, 0.85)';
-            }
-        });
-
-        // Animación de entrada
         const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.style.opacity = '1';
-                    entry.target.style.transform = 'translateY(0)';
-                }
-            });
-        }, { threshold: 0.1 });
-
-        document.querySelectorAll('.protagonist, .ally-card, .enemy-card').forEach((el, i) => {
-            el.style.opacity = '0';
-            el.style.transform = 'translateY(30px)';
-            el.style.transition = `all 0.6s ease ${i * 0.08}s`;
-            observer.observe(el);
-        });
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            entry.target.style.opacity = '1';
+                            entry.target.style.transform = 'translateY(0)';
+                        }
+                    });
+                }, { threshold: 0.1 });
+        
+                document.querySelectorAll('.protagonist, .ally-card, .enemy-card').forEach((el, i) => {
+                    el.style.opacity = '0';
+                    el.style.transform = 'translateY(30px)';
+                    el.style.transition = `all 0.6s ease ${i * 0.08}s`;
+                    observer.observe(el);
+                });
     </script>
-</body>
-</html>
+{% endblock %}

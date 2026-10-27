@@ -126,6 +126,29 @@
             width: 100%;
         }
 
+        .nav-user {
+            color: var(--accent-green);
+            font-size: 0.95rem;
+            letter-spacing: 1px;
+        }
+
+        .nav-logout {
+            position: relative;
+            border: 0;
+            background: transparent;
+            color: var(--text-main);
+            cursor: pointer;
+            font: inherit;
+            font-size: 0.95rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            transition: color 0.3s;
+        }
+
+        .nav-logout:hover {
+            color: var(--accent-cyan);
+        }
+
         .menu-toggle {
             display: none;
             background: none;

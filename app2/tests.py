@@ -9,6 +9,28 @@ from django.urls import reverse
 
 @override_settings(EMAIL_BACKEND='django.core.mail.backends.locmem.EmailBackend')
 class AuthenticationTests(TestCase):
+    def test_public_pages_use_shared_navigation_and_footer(self):
+        for route_name in ('hola', 'historia', 'personajes', 'descarga'):
+            with self.subTest(page=route_name):
+                response = self.client.get(reverse(route_name))
+                html = response.content.decode()
+
+                self.assertEqual(response.status_code, 200)
+                self.assertEqual(html.count('<nav>'), 1)
+                self.assertEqual(html.count('<footer>'), 1)
+                self.assertIn('css/index.css', html)
+
+    def test_auth_pages_extend_the_shared_layout_without_public_navigation(self):
+        for route_name in ('login', 'registro', 'password_reset'):
+            with self.subTest(page=route_name):
+                response = self.client.get(reverse(route_name))
+                html = response.content.decode()
+
+                self.assertEqual(response.status_code, 200)
+                self.assertNotIn('<nav>', html)
+                self.assertNotIn('<footer>', html)
+                self.assertIn('css/auth.css', html)
+
     def test_registration_creates_user_and_logs_them_in(self):
         response = self.client.post(reverse('registro'), {
             'username': 'commander_one',
